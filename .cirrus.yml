@@ -26,8 +26,9 @@ task:
        - ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
   
   Sync_script:
+       - mkdir $HOME/bin
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
-       - chmod a+x ~/bin/repo
+       - chmod a+x $HOME/bin/repo
        - mkdir ~/Dot
        - cd ~/Dot
        - repo init --depth=1 --no-repo-verify -u https://github.com/DotOS/manifest.git -b dot12.1 -g default,-mips,-darwin,-notdefault
