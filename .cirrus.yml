@@ -19,8 +19,7 @@ task:
        - apt-get install -y tzdata
        - dpkg-reconfigure --frontend noninteractive tzdata
        - sudo apt update -y && sudo apt install git aria2 curl wget rsync zip unzip lzma cpio ccache neofetch -y
-       - sudo apt install python2 -y
-       - sudo ln -sf /usr/bin/python2 /usr/bin/python
+       - sudo apt install python-is-python3 -y
        - git config --global user.name "HoangLong"
        - git config --global user.email "hoanglong.wr.q@gmail.com"
        - ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
