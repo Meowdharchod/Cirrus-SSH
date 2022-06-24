@@ -1,5 +1,5 @@
 env:
-  TZ: Asia/KolKata
+  TZ: Asia/Ho_Chi_Minh
 
 task:
   name: "Ubuntu SSH"
@@ -9,7 +9,7 @@ task:
       cpu: 8
       memory: 32G
   
-  Build-Env-Setup_script:
+  Env-Setup_script:
        - export DEBIAN_FRONTEND=noninteractive
        - apt update
        - apt install sudo
@@ -21,14 +21,23 @@ task:
        - sudo apt update -y && sudo apt install git aria2 curl wget rsync zip unzip lzma cpio ccache neofetch -y
        - sudo apt install python2 -y
        - sudo ln -sf /usr/bin/python2 /usr/bin/python
-       - git config --global user.name "Sushrut1101"
-       - git config --global user.email "guptasushrut@gmail.com"
+       - git config --global user.name "HoangLong"
+       - git config --global user.email "hoanglong.wr.q@gmail.com"
        - ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
   
-  Tmate_script:
-       - curl https://raw.githubusercontent.com/Sushrut1101/Ubuntu-Tmate/master/tmate > ~/tmate
-       - sudo bash ~/tmate
-  
-  Spam_script:
-       - curl https://raw.githubusercontent.com/Sushrut1101/Ubuntu-Tmate/master/spam.sh > ~/spam.sh
-       - bash ~/spam.sh
+  Sync_script:
+       - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
+       - chmod a+x ~/bin/repo
+       - mkdir ~/Dot
+       - cd ~/Dot
+       - repo init --depth=1 --no-repo-verify -u https://github.com/DotOS/manifest.git -b dot12.1 -g default,-mips,-darwin,-notdefault
+       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+       - git clone https://gitlab.com/TipzTeam/android-trees/android_device_cyanogen_msm8916-common -b lineage-19.1 device/cyanogen/msm8916-common
+       - git clone https://github.com/VR-HoangLong/android_device_oppo_A37 -b lineage-19.1 device/oppo/A37
+       - git clone https://gitlab.com/TipzTeam/android-trees/android_kernel_oppo_msm8916 kernel/oppo/msm8939
+       - git clone https://gitlab.com/TipzTeam/android-trees/proprietary_vendor_oppo_A37 -b lineage-19.1 vendor/oppo|
+
+  Build_script:
+       - source build/envsetup.sh
+       - lunch dot_A37-user
+       - make bacon
