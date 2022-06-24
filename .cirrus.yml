@@ -39,6 +39,7 @@ task:
        - git clone https://gitlab.com/TipzTeam/android-trees/proprietary_vendor_oppo_A37 -b lineage-19.1 vendor/oppo
 
   Build_script:
+       - cd ~/Dot
        - source build/envsetup.sh
        - lunch dot_A37-user
        - make bacon
