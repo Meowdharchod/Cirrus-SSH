@@ -35,7 +35,7 @@ task:
        - git clone https://gitlab.com/TipzTeam/android-trees/android_device_cyanogen_msm8916-common -b lineage-19.1 device/cyanogen/msm8916-common
        - git clone https://github.com/VR-HoangLong/android_device_oppo_A37 -b lineage-19.1 device/oppo/A37
        - git clone https://gitlab.com/TipzTeam/android-trees/android_kernel_oppo_msm8916 kernel/oppo/msm8939
-       - git clone https://gitlab.com/TipzTeam/android-trees/proprietary_vendor_oppo_A37 -b lineage-19.1 vendor/oppo|
+       - git clone https://gitlab.com/TipzTeam/android-trees/proprietary_vendor_oppo_A37 -b lineage-19.1 vendor/oppo
 
   Build_script:
        - source build/envsetup.sh
