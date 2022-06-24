@@ -39,14 +39,10 @@ task:
        - git clone https://gitlab.com/TipzTeam/android-trees/proprietary_vendor_oppo_A37 -b lineage-19.1 vendor/oppo
 
 
-  Ccache_script:
+  SDK_script:
        - wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
        - unzip platform-tools-latest-linux.zip -d ~
        - export PATH="\$HOME/platform-tools:\$PATH"
-       - export USE_CCACHE=1
-       - export CCACHE_DIR=~/.ccache
-       - source ~/.bashrc
-       - ccache -M 50G
 
   Build_script:
        - cd ~/Dot
