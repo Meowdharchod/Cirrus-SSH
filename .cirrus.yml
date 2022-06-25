@@ -48,4 +48,4 @@ task:
        - cd ~/Dot
        - source build/envsetup.sh
        - lunch dot_A37-eng
-       - make bacon
+       - mka systemimage -j31
