@@ -31,7 +31,7 @@ task:
        - export PATH="$PATH:$HOME/bin"
        - mkdir ~/Dot
        - cd ~/Dot
-       - repo init --depth=1 --no-repo-verify -u https://github.com/DotOS/manifest.git -b dot12.1 -g default,-mips,-darwin,-notdefault
+       - repo init --depth=1 --no-repo-verify -u https://github.com/VR-HoangLong/manifest.git -b dot12.1 -g default,-mips,-darwin,-notdefault
        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
        - git clone https://gitlab.com/TipzTeam/android-trees/android_device_cyanogen_msm8916-common -b lineage-19.1 device/cyanogen/msm8916-common
        - git clone https://github.com/VR-HoangLong/android_device_oppo_A37 -b lineage-19.1 device/oppo/A37
@@ -47,5 +47,5 @@ task:
   Build_script:
        - cd ~/Dot
        - source build/envsetup.sh
-       - lunch dot_A37-eng
+       - lunch dot_A37-userdebug
        - mka systemimage -j31
