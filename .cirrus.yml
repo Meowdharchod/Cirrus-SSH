@@ -23,29 +23,13 @@ task:
        - git config --global user.name "HoangLong"
        - git config --global user.email "hoanglong.wr.q@gmail.com"
        - ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
-  
+
   Sync_script:
        - mkdir $HOME/bin
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
        - chmod a+x $HOME/bin/repo
        - export PATH="$PATH:$HOME/bin"
-       - mkdir ~/Dot
-       - cd ~/Dot
-       - repo init --depth=1 --no-repo-verify -u https://github.com/VR-HoangLong/manifest.git -b dot12.1 -g default,-mips,-darwin,-notdefault
-       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
-       - git clone https://gitlab.com/TipzTeam/android-trees/android_device_cyanogen_msm8916-common -b lineage-19.1 device/cyanogen/msm8916-common
-       - git clone https://github.com/VR-HoangLong/android_device_oppo_A37 -b lineage-19.1 device/oppo/A37
-       - git clone https://gitlab.com/TipzTeam/android-trees/android_kernel_oppo_msm8916 kernel/oppo/msm8939
-       - git clone https://gitlab.com/TipzTeam/android-trees/proprietary_vendor_oppo_A37 -b lineage-19.1 vendor/oppo
-
-
-  SDK_script:
-       - wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
-       - unzip platform-tools-latest-linux.zip -d ~
-       - export PATH="\$HOME/platform-tools:\$PATH"
-
-  Build_script:
-       - cd ~/Dot
-       - source build/envsetup.sh
-       - lunch dot_A37-userdebug
-       - mka systemimage -j31
+       - mkdir ~/Pixel
+       - cd ~/Pixel
+       - git clone https://github.com/VR-HoangLong/treble_build_pe -b twelve
+       - bash treble_build_pe/build.sh twelve-plus
