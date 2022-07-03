@@ -23,13 +23,29 @@ task:
        - git config --global user.name "HoangLong"
        - git config --global user.email "hoanglong.wr.q@gmail.com"
        - ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
-
+  
   Sync_script:
        - mkdir $HOME/bin
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
        - chmod a+x $HOME/bin/repo
        - export PATH="$PATH:$HOME/bin"
-       - mkdir ~/Pixel
-       - cd ~/Pixel
-       - git clone https://github.com/VR-HoangLong/treble_build_pe -b twelve
-       - bash treble_build_pe/build.sh twelve-plus
+       - mkdir ~/RR
+       - cd ~/RR
+       - repo init --depth=1 --no-repo-verify -u https://github.com/ResurrectionRemix/platform_manifest.git -b Q -g default,-mips,-darwin,-notdefault
+       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+       - git clone https://github.com/thinhx2/sm6150-common-line -b master device/vsmart/sm6150-common
+       - git clone https://github.com/thinhx2/v620a-line -b rr-ten device/vsmart/V620A
+       - git clone https://github.com/thinhx2/android_vendor_vsmart_sm6150 -b master vendor/vsmart/sm6150-common
+       - git clone https://github.com/thinhx2/android_vendor_vsmart_V620A -b master vendor/vsmart/V620A
+
+
+  SDK_script:
+       - wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
+       - unzip platform-tools-latest-linux.zip -d ~
+       - export PATH="\$HOME/platform-tools:\$PATH"
+
+  Build_script:
+       - cd ~/RR
+       - source build/envsetup.sh
+       - lunch rr_V620A-eng
+       - make bacon
