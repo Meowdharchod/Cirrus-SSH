@@ -33,7 +33,7 @@ task:
        - cd ~/RR
        - repo init --depth=1 --no-repo-verify -u https://github.com/VR-HoangLong/platform_manifest.git -b Q -g default,-mips,-darwin,-notdefault
        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j33
-       - git clone https://github.com/thinhx2/sm6150-common-line -b master device/vsmart/sm6150-common
+       - git clone https://github.com/VR-HoangLong/sm6150-common-line -b master device/vsmart/sm6150-common
        - git clone https://github.com/thinhx2/v620a-line -b rr-ten device/vsmart/V620A
        - git clone https://github.com/thinhx2/android_vendor_vsmart_sm6150-common -b master vendor/vsmart/sm6150-common
        - git clone https://github.com/thinhx2/android_vendor_vsmart_V620A -b mkq vendor/vsmart/V620A
