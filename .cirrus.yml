@@ -29,12 +29,12 @@ task:
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
        - chmod a+x $HOME/bin/repo
        - export PATH="$PATH:$HOME/bin"
-       - mkdir ~/RR
-       - cd ~/RR
-       - repo init --depth=1 --no-repo-verify -u https://github.com/CarbonROM/android.git -b cr-8.0 -g default,-mips,-darwin,-notdefault
+       - mkdir ~/Lineage
+       - cd ~/Lineage
+       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-17.1 -g default,-mips,-darwin,-notdefault
        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j33
        - git clone https://github.com/VR-HoangLong/sm6150-common-line -b master device/vsmart/sm6150-common
-       - git clone https://github.com/thinhx2/v620a-line -b carbon-ten device/vsmart/V620A
+       - git clone https://github.com/VR-HoangLong/v620a-line -b master device/vsmart/V620A
        - git clone https://github.com/thinhx2/android_vendor_vsmart_sm6150-common -b master vendor/vsmart/sm6150-common
        - git clone https://github.com/thinhx2/android_vendor_vsmart_V620A -b mkq vendor/vsmart/V620A
 
@@ -45,7 +45,8 @@ task:
        - export PATH="\$HOME/platform-tools:\$PATH"
 
   Build_script:
-       - cd ~/RR
+       - cd ~/Lineage
+       - export PATH="\$HOME/platform-tools:\$PATH"
        - source build/envsetup.sh
-       - lunch carbon_V620A-eng
-       - make carbon -j31
+       - lunch lineage_V620A-userdebug
+       - make bacon -j31
