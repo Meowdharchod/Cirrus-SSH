@@ -55,9 +55,3 @@ task:
        - make system-api-stubs-docs
        - make test-api-stubs-docs
        - ccache -s
-       - make bacon -j31
-
-  Upload_Build_script:
-       - cd ~/Lineage/out/target/product/V620A
-       - curl -sL $OUTFILE https://git.io/file-transfer | sh
-       - ./transfer wet lineage*.zip
