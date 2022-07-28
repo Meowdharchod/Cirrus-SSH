@@ -50,9 +50,9 @@ task:
 
   Setup_Ccache_script:
        - cd ~/LineageCCache
-       - wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1-p3q_Fki0U9HyyoPIHinkBIByre9FZGo' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1-p3q_Fki0U9HyyoPIHinkBIByre9FZGo" -O ccache-a10-171-V620A.tar.gz && rm -rf /tmp/cookies.txt
-       - tar xf ccache-a10-171-V620A.tar.gz
-       - rm -rf ccache-a10-171-V620A.tar.gz
+       - wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1MPSEoc9muXIevPI1hAh5z7C2rR6avJ2j' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1MPSEoc9muXIevPI1hAh5z7C2rR6avJ2j" -O ccache-a10-171-1-V620A.tar.gz && rm -rf /tmp/cookies.txt
+       - tar xf ccache-a10-171-1-V620A.tar.gz
+       - rm -rf ccache-a10-171-1-V620A.tar.gz
 
   Build_script:
        - cd ~/Lineage
@@ -67,5 +67,4 @@ task:
 
   Upload_build_script:
        - cd ~/los/out/target/product/V620A
-       - curl -sL https://git.io/file-transfer | sh
-       - ./transfer wet lineage*.zip
+       - rclone copy lineage*.zip gdrive:
