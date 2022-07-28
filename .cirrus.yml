@@ -1,5 +1,6 @@
 env:
   TZ: Asia/Ho_Chi_Minh
+  rclone_config: ENCRYPTED[713c6f7fe2ad3e379013aa22941e37ba53d35e2c4d4afd918169bda064badf6eea9161aa35c944bcafe2996a606ba032]
 
 task:
   name: "Ubuntu SSH"
@@ -12,6 +13,7 @@ task:
   Env-Setup_script:
        - export DEBIAN_FRONTEND=noninteractive
        - apt update
+       - apt install sudo
        - DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
        - ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime
        - apt-get install -y tzdata
@@ -55,3 +57,9 @@ task:
        - make system-api-stubs-docs
        - make test-api-stubs-docs
        - ccache -s
+       - make bacon -j31
+
+  upload_build_script:
+       - cd ~/los/out/target/product/V620A
+       - curl -sL $OUTFILE https://git.io/file-transfer | sh
+       - ./transfer wet lineage*.zip
