@@ -61,7 +61,7 @@ task:
        - export CCACHE_DIR=~/LineageCCache/cache
        - export CCACHE_EXEC=$(which ccache)
        - export USE_CCACHE=1
-       - source build/envsetup.sh
+       - . build/envsetup.sh
        - lunch lineage_V620A-userdebug
        - ccache -s
        - make bacon -j31
