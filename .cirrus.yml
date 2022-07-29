@@ -68,4 +68,4 @@ task:
 
   Upload_build_script:
        - cd ~/Lineage/out/target/product/V620A
-       - rclone copy lineage*.zip gdrive:
+       - rclone copy lineage-17.1-*-UNOFFICIAL-V620A.zip gdrive:
