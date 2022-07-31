@@ -30,14 +30,7 @@ task:
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
        - chmod a+x $HOME/bin/repo
        - export PATH="$PATH:$HOME/bin"
-       - mkdir ~/Lineage ~/LineageCCache
-       - cd ~/Lineage
-       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-17.1 -g default,-mips,-darwin,-notdefault
-       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j33
-       - git clone https://github.com/VR-HoangLong/sm6150-common-line -b master device/vsmart/sm6150-common
-       - git clone https://github.com/VR-HoangLong/v620a-line -b master device/vsmart/V620A
-       - git clone https://github.com/thinhx2/android_vendor_vsmart_sm6150-common -b master vendor/vsmart/sm6150-common
-       - git clone https://github.com/thinhx2/android_vendor_vsmart_V620A -b mkq vendor/vsmart/V620A
+       - mkdir ~/xdroid ~/xdroidCCache
 
   SDK_script:
        - wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
@@ -48,24 +41,12 @@ task:
        - mkdir -p ~/.config/rclone
        - echo "$rclone_config" > ~/.config/rclone/rclone.conf
 
-  Setup_Ccache_script:
-       - cd ~/LineageCCache
-       - wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1MPSEoc9muXIevPI1hAh5z7C2rR6avJ2j' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1MPSEoc9muXIevPI1hAh5z7C2rR6avJ2j" -O ccache-a10-171-1-V620A.tar.gz && rm -rf /tmp/cookies.txt
-       - tar xf ccache-a10-171-1-V620A.tar.gz
-       - rm -rf ccache-a10-171-1-V620A.tar.gz
-
   Build_script:
-       - cd ~/Lineage
+       - cd ~/xdroid
+       - git clone https://github.com/VR-HoangLong/treble_build_xdroid
        - export PATH="$PATH:$HOME/bin"
        - sudo ln -s /proc/self/mounts /etc/mtab
-       - export CCACHE_DIR=~/LineageCCache/cache
+       - export CCACHE_DIR=~/xdroidCCache/cache
        - export CCACHE_EXEC=$(which ccache)
        - export USE_CCACHE=1
-       - . build/envsetup.sh
-       - lunch lineage_V620A-userdebug
-       - ccache -s
-       - make bacon -j31
-
-  Upload_build_script:
-       - cd ~/Lineage/out/target/product/V620A
-       - rclone copy lineage-17.1-*-UNOFFICIAL-V620A.zip gdrive:
+       - bash treble_build_xdroid/build.sh
