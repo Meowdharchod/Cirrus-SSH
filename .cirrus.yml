@@ -34,8 +34,8 @@ task:
        - cd ~/Lineage
        - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-18.1 -g default,-mips,-darwin,-notdefault
        - repo sync -c --no-clone-bundle --no-tags --prune --force-sync -j33
-       - git clone https://github.com/VR-HoangLong/sm6150-common-line -b master device/vsmart/sm6150-common
-       - git clone https://github.com/VR-HoangLong/v620a-line -b master device/vsmart/V620A
+       - git clone https://github.com/VR-HoangLong/android_device_vsmart_sm6150-common -b lineage-18.1 device/vsmart/sm6150-common
+       - git clone https://github.com/VR-HoangLong/android_device_vsmart_V620A -b lineage-18.1 device/vsmart/V620A
        - git clone https://github.com/thinhx2/android_vendor_vsmart_sm6150-common -b master vendor/vsmart/sm6150-common
        - git clone https://github.com/thinhx2/android_vendor_vsmart_V620A -b mkq vendor/vsmart/V620A
 
