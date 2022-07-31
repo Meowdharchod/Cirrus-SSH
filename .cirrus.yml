@@ -30,7 +30,14 @@ task:
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
        - chmod a+x $HOME/bin/repo
        - export PATH="$PATH:$HOME/bin"
-       - mkdir ~/xdroid ~/xdroidCCache
+       - mkdir ~/Lineage ~/LineageCCache
+       - cd ~/Lineage
+       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-18.1 -g default,-mips,-darwin,-notdefault
+       - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j33
+       - git clone https://github.com/VR-HoangLong/sm6150-common-line -b master device/vsmart/sm6150-common
+       - git clone https://github.com/VR-HoangLong/v620a-line -b master device/vsmart/V620A
+       - git clone https://github.com/thinhx2/android_vendor_vsmart_sm6150-common -b master vendor/vsmart/sm6150-common
+       - git clone https://github.com/thinhx2/android_vendor_vsmart_V620A -b mkq vendor/vsmart/V620A
 
   SDK_script:
        - wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
@@ -42,11 +49,17 @@ task:
        - echo "$rclone_config" > ~/.config/rclone/rclone.conf
 
   Build_script:
-       - cd ~/xdroid
-       - git clone https://github.com/VR-HoangLong/treble_build_xdroid
+       - cd ~/Lineage
        - export PATH="$PATH:$HOME/bin"
        - sudo ln -s /proc/self/mounts /etc/mtab
-       - export CCACHE_DIR=~/xdroidCCache/cache
+       - export CCACHE_DIR=~/LineageCCache/cache
        - export CCACHE_EXEC=$(which ccache)
        - export USE_CCACHE=1
-       - bash treble_build_xdroid/build.sh
+       - . build/envsetup.sh
+       - lunch lineage_V620A-userdebug
+       - ccache -s
+       - make bacon -j31
+
+  Upload_build_script:
+       - cd ~/Lineage/out/target/product/V620A
+       - rclone copy lineage-18.1-*-UNOFFICIAL-V620A.zip gdrive:
