@@ -32,10 +32,10 @@ task:
        - export PATH="$PATH:$HOME/bin"
        - mkdir ~/Lineage ~/LineageCCache
        - cd ~/Lineage
-       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-18.1 -g default,-mips,-darwin,-notdefault
+       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-17.1 -g default,-mips,-darwin,-notdefault
        - repo sync -c --no-clone-bundle --no-tags --prune --force-sync -j33
-       - git clone https://github.com/VR-HoangLong/android_device_vsmart_sm6150-common -b lineage-18.1 device/vsmart/sm6150-common
-       - git clone https://github.com/VR-HoangLong/android_device_vsmart_V620A -b lineage-18.1 device/vsmart/V620A
+       - git clone https://github.com/VR-HoangLong/android_device_vsmart_sm6150-common -b lineage-17.1-q device/vsmart/sm6150-common
+       - git clone https://github.com/VR-HoangLong/android_device_vsmart_V620A -b lineage-17.1-q device/vsmart/V620A
        - git clone https://github.com/thinhx2/android_vendor_vsmart_sm6150-common -b master vendor/vsmart/sm6150-common
        - git clone https://github.com/thinhx2/android_vendor_vsmart_V620A -b mkq vendor/vsmart/V620A
 
@@ -48,6 +48,12 @@ task:
        - mkdir -p ~/.config/rclone
        - echo "$rclone_config" > ~/.config/rclone/rclone.conf
 
+  Setup_Ccache_script:
+       - cd ~/LineageCCache
+       - wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1MPSEoc9muXIevPI1hAh5z7C2rR6avJ2j' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1MPSEoc9muXIevPI1hAh5z7C2rR6avJ2j" -O ccache-a10-171-1-V620A.tar.gz && rm -rf /tmp/cookies.txt
+       - tar xf ccache-a10-171-1-V620A.tar.gz
+       - rm -rf ccache-a10-171-1-V620A.tar.gz
+
   Build_script:
        - cd ~/Lineage
        - export PATH="$PATH:$HOME/bin"
@@ -57,9 +63,8 @@ task:
        - export USE_CCACHE=1
        - . build/envsetup.sh
        - lunch lineage_V620A-userdebug
-       - ccache -s
        - make bacon -j31
 
   Upload_build_script:
        - cd ~/Lineage/out/target/product/V620A
-       - rclone copy lineage-18.1-*-UNOFFICIAL-V620A.zip gdrive:
+       - rclone copy lineage-17.1-*-UNOFFICIAL-V620A.zip gdrive:
