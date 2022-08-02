@@ -30,12 +30,7 @@ task:
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
        - chmod a+x $HOME/bin/repo
        - export PATH="$PATH:$HOME/bin"
-       - mkdir ~/Lineage ~/LineageCCache
-       - cd ~/Lineage
-       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-19.1 -g default,-mips,-darwin,-notdefault
-       - repo sync -c --no-clone-bundle --no-tags --prune --force-sync -j33
-       - git clone https://github.com/VR-HoangLong/android_device_vsmart_V430A -b lineage-19.1-q device/vsmart/V430A
-       - git clone https://github.com/VR-HoangLong/android_vendor_vsmart_V430A -b twelve vendor/vsmart/V430A
+       - mkdir ~/xdroid ~/xdroidCCache
 
   SDK_script:
        - wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
@@ -47,12 +42,9 @@ task:
        - echo "$rclone_config" > ~/.config/rclone/rclone.conf
 
   Build_script:
-       - cd ~/Lineage
+       - cd ~/xdroid
+       - git clone https://github.com/VR-HoangLong/treble_build_xdroid
        - export PATH="$PATH:$HOME/bin"
        - sudo ln -s /proc/self/mounts /etc/mtab
-       - export CCACHE_DIR=~/LineageCCache/cache
-       - export CCACHE_EXEC=$(which ccache)
-       - export USE_CCACHE=1
-       - . build/envsetup.sh
-       - lunch lineage_V430A-userdebug
-       - make bacon -j31
+       - chmod a+x treble_build_xdroid/build.sh
+       - bash treble_build_xdroid/build.sh
