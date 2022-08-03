@@ -48,3 +48,8 @@ task:
        - sudo ln -s /proc/self/mounts /etc/mtab
        - chmod a+x treble_build_xdroid/build.sh
        - bash treble_build_xdroid/build.sh
+
+  ReBuild_script:
+       - cd ~/xdroid
+       - export PATH="$PATH:$HOME/bin"
+       - bash treble_build_xdroid/build.sh
