@@ -25,6 +25,10 @@ task:
        - ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
        - curl https://rclone.org/install.sh | sudo bash
 
+  Setup_Rclone_script:
+       - mkdir -p ~/.config/rclone
+       - echo "$rclone_config" > ~/.config/rclone/rclone.conf
+
   Sync_script:
        - mkdir $HOME/bin
        - curl https://storage.googleapis.com/git-repo-downloads/repo > $HOME/bin/repo
@@ -41,10 +45,6 @@ task:
        - unzip platform-tools-latest-linux.zip -d ~
        - export PATH="\$HOME/platform-tools:\$PATH"
 
-  Setup_Rclone_script:
-       - mkdir -p ~/.config/rclone
-       - echo "$rclone_config" > ~/.config/rclone/rclone.conf
-
   Build_script:
        - cd ~/Lineage
        - export PATH="$PATH:$HOME/bin"
@@ -53,8 +53,8 @@ task:
        - export CCACHE_EXEC=$(which ccache)
        - export USE_CCACHE=1
        - . build/envsetup.sh
-       - lunch lineage_kltekdi-userdebug
-       - make bootimage
+       - lunch lineage_V430A-userdebug
+       - make vendorimage -j31
 
   Upload_build_script:
        - cd ~/Lineage/out/target/product/kltekdi
