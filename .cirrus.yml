@@ -36,7 +36,7 @@ task:
        - export PATH="$PATH:$HOME/bin"
        - mkdir ~/Lineage ~/LineageCCache
        - cd ~/Lineage
-       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS-UL/android.git -b lineage-19.1 -g default,-mips,-darwin,-notdefault
+       - repo init --depth=1 --no-repo-verify -u https://github.com/LineageOS/android.git -b lineage-19.1 -g default,-mips,-darwin,-notdefault
        - git clone https://github.com/VR-HoangLong/localmanifest --depth 1 -b lineage-19.1 .repo/local_manifests
        - repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j33
 
@@ -48,7 +48,7 @@ task:
   Build_script:
        - cd ~/Lineage
        - export PATH="$PATH:$HOME/bin"
-       - sudo ln -s /proc/self/mounts /etc/mtab
+       - export ALLOW_MISSING_DEPENDENCIES=true
        - export CCACHE_DIR=~/LineageCCache/cache
        - export CCACHE_EXEC=$(which ccache)
        - export USE_CCACHE=1
@@ -57,5 +57,5 @@ task:
        - make vendorimage -j31
 
   Upload_build_script:
-       - cd ~/Lineage/out/target/product/kltekdi
-       - rclone copy lineage-19.1-*-UNOFFICIAL-kltekdi.zip gdrive:
+       - cd ~/Lineage/out/target/product/V430A
+       - rclone copy vendor.img gdrive:
